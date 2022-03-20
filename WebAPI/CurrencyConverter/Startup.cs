@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CurrencyConverter
 {
@@ -19,7 +20,7 @@ namespace CurrencyConverter
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddDbContext<ExchangeRateContext>(item => item.UseSqlServer(Configuration.GetConnectionString("DbConnection")));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
