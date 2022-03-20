@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import CurrencyRow from './CurrencyRow';
+import CurrencyArrow from './arrows.svg';
 
 const URL = 'https://api.exchangerate.host/latest';
 
@@ -12,10 +13,10 @@ function App() {
   const [amount, setAmount] = useState(1);
   const [amountInFromCurrency, setAmountInFromCurrency] = useState(true);
 
-  document.addEventListener(
-    'DOMContentLoaded',
-    setInterval(currencyApiCall, 1000 * 60 * 10)
-  ); // 10 minutes
+  // document.addEventListener(
+  //   'DOMContentLoaded',
+  //   setInterval(currencyApiCall, 1000 * 60 * 10)
+  // ); // 10 minutes
 
   let toAmount, fromAmount;
   if (amountInFromCurrency) {
@@ -30,6 +31,7 @@ function App() {
       .then((res) => res.json())
       .then((data) => {
         data.base = 'USD';
+        console.log(data);
         const firstCurrency = Object.keys(data.rates)[0];
         setCurrencyOptions([data.base, ...Object.keys(data.rates)]);
         setFromCurrency(data.base);
@@ -60,22 +62,28 @@ function App() {
 
   return (
     <>
-      <h1>Convert</h1>
-      <CurrencyRow
-        currencyOptions={currencyOptions}
-        selectedCurrency={fromCurrency}
-        onChangeCurrency={(e) => setFromCurrency(e.target.value)}
-        onChangeAmount={handleFromAmountChange}
-        amount={fromAmount}
-      />
-      <div className="equals">=</div>
-      <CurrencyRow
-        currencyOptions={currencyOptions}
-        selectedCurrency={toCurrency}
-        onChangeCurrency={(e) => setToCurrency(e.target.value)}
-        onChangeAmount={handleToAmountChange}
-        amount={toAmount}
-      />
+      <div className="title">
+        <h1>Convert</h1>
+      </div>
+      <div className="rows">
+        <CurrencyRow
+          currencyOptions={currencyOptions}
+          selectedCurrency={fromCurrency}
+          onChangeCurrency={(e) => setFromCurrency(e.target.value)}
+          onChangeAmount={handleFromAmountChange}
+          amount={fromAmount}
+        />
+        <div className="equals">
+          <img src={CurrencyArrow} alt="arrow" />
+        </div>
+        <CurrencyRow
+          currencyOptions={currencyOptions}
+          selectedCurrency={toCurrency}
+          onChangeCurrency={(e) => setToCurrency(e.target.value)}
+          onChangeAmount={handleToAmountChange}
+          amount={toAmount}
+        />
+      </div>
     </>
   );
 }
