@@ -1,8 +1,6 @@
 ﻿using CurrencyConverter.DTO;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CurrencyConverter.Controllers
@@ -11,7 +9,15 @@ namespace CurrencyConverter.Controllers
     [ApiController]
     public class CurrencyController : ControllerBase
     {
+        /// <summary>
+        /// Sends CurrencyDto object
+        /// </summary>
+        /// <returns>CurrencyDto object</returns>
+        /// <response code="200">Successfully returned DTO</response>
+        /// <response code="400">If the item is null</response>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<CurrencyDto>> GetExchangeRate()
         {
             var dto = new CurrencyDto();
