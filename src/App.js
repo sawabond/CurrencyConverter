@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import './App.css';
-import CurrencyRow from './CurrencyRow';
+import React, { useEffect, useState } from "react";
+import "./App.css";
+import CurrencyRow from "./CurrencyRow";
 
-const URL = 'https://api.exchangerate.host/latest';
+const URL = "https://api.exchangerate.host/latest";
+const API_CALL_TIMESTAMP = 1000 * 60 * 10; // 10 minutes
 
 function App() {
   const [currencyOptions, setCurrencyOptions] = useState([]);
@@ -11,11 +12,6 @@ function App() {
   const [exchangeRate, setExchangeRate] = useState();
   const [amount, setAmount] = useState(1);
   const [amountInFromCurrency, setAmountInFromCurrency] = useState(true);
-
-  document.addEventListener(
-    'DOMContentLoaded',
-    setInterval(currencyApiCall, 1000 * 60 * 10)
-  ); // 10 minutes
 
   let toAmount, fromAmount;
   if (amountInFromCurrency) {
@@ -29,7 +25,7 @@ function App() {
     fetch(URL)
       .then((res) => res.json())
       .then((data) => {
-        data.base = 'USD';
+        data.base = "USD";
         const firstCurrency = Object.keys(data.rates)[0];
         setCurrencyOptions([data.base, ...Object.keys(data.rates)]);
         setFromCurrency(data.base);
@@ -39,6 +35,7 @@ function App() {
   }
   useEffect(() => {
     currencyApiCall();
+    setInterval(currencyApiCall, API_CALL_TIMESTAMP);
   }, []);
 
   useEffect(() => {
