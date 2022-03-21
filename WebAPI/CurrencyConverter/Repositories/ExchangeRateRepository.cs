@@ -31,7 +31,11 @@ namespace CurrencyConverter.Repositories
         {
             return _context.Set<ExchangeRate>().ToList();
         }
-        public ExchangeRate Get(string currencyName)
+        public ExchangeRate Get(int id)
+        {
+            return _context.Set<ExchangeRate>().Find(id);
+        }
+        public ExchangeRate GetByName(string currencyName)
         {
             return _context.Set<ExchangeRate>().Find(currencyName);
         }

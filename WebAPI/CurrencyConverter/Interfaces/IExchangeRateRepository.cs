@@ -7,7 +7,8 @@ namespace CurrencyConverter.Interfaces
 {
     public interface IExchangeRateRepository
     {
-        ExchangeRate Get(string currencyName);
+        ExchangeRate Get(int id);
+        ExchangeRate GetByName(string currencyName);
         IEnumerable<ExchangeRate> GetAll();
         IEnumerable<ExchangeRate> Find(Expression<Func<ExchangeRate, bool>> expression);
         void Add(ExchangeRate exchangeRate);
