@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Model;
 
-namespace CurrencyConverter
+namespace CurrencyConverter.Data
 {
     public class ExchangeRateContext : DbContext
     {
