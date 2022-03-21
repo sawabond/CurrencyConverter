@@ -12,6 +12,11 @@ namespace CurrencyConverter.Controllers
     [ApiController]
     public class CurrencyController : ControllerBase
     {
+        public CurrencyController()
+        {
+
+        }
+
         /// <summary>
         /// Sends CurrencyDto object
         /// </summary>
@@ -23,6 +28,7 @@ namespace CurrencyConverter.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<CurrencyDto>> GetExchangeRate()
         {
+
             var models = new List<ExchangeRate>
             {
                 new ExchangeRate

@@ -12,11 +12,6 @@ namespace CurrencyConverter.Helpers.Extentions
         {
             try
             {
-                if (exchangeRates.All(x => x.BaseCurrencyName == exchangeRates[0].BaseCurrencyName) == false)
-                {
-                    return false;
-                }
-
                 currencyDto.Base = exchangeRates[0].BaseCurrencyName;
                 
                 foreach (ExchangeRate exchangeRate in exchangeRates)
