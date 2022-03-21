@@ -1,12 +1,11 @@
-﻿using CurrencyConverter.Data;
-using CurrencyConverter.Interfaces;
+﻿using CurrencyConverter.Interfaces;
 using Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace CurrencyConverter.Repositories
+namespace CurrencyConverter.Data
 {
     public class ExchangeRateRepository : IExchangeRateRepository
     {
@@ -47,7 +46,7 @@ namespace CurrencyConverter.Repositories
         {
             _context.Set<ExchangeRate>().RemoveRange(exchangeRates);
         }
-        public void Save()
+        public void Confirm()
         {
             _context.SaveChanges();
         }
