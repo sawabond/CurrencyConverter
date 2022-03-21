@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Model;
+using System.Collections.Generic;
+using CurrencyConverter.Helpers.Extentions;
 
 namespace CurrencyConverter.Controllers
 {
@@ -9,6 +12,11 @@ namespace CurrencyConverter.Controllers
     [ApiController]
     public class CurrencyController : ControllerBase
     {
+        public CurrencyController()
+        {
+
+        }
+
         /// <summary>
         /// Sends CurrencyDto object
         /// </summary>
@@ -20,8 +28,33 @@ namespace CurrencyConverter.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<CurrencyDto>> GetExchangeRate()
         {
+
+            var models = new List<ExchangeRate>
+            {
+                new ExchangeRate
+                {
+                    Id = 1,
+                    BaseCurrencyName = "USD",
+                    CurrencyName = "RUB",
+                    Amount = 666D
+                },
+                new ExchangeRate
+                {
+                    Id = 2,
+                    BaseCurrencyName = "USD",
+                    CurrencyName = "UAH",
+                    Amount = 32.64D
+                }
+            };
+
             var dto = new CurrencyDto();
-            return Ok(dto);
+
+            if (dto.MapFromExchangeRate(models))
+            {
+                return Ok(dto);
+            }
+
+            return BadRequest("Unable to map models");
         }
     }
 }
