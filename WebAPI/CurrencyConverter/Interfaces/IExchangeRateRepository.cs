@@ -15,6 +15,5 @@ namespace CurrencyConverter.Interfaces
         void AddRange(IEnumerable<ExchangeRate> exchangeRates);
         void Remove(ExchangeRate exchangeRate);
         void RemoveRange (IEnumerable<ExchangeRate> exchangeRates);
-        void Confirm();
     }
 }

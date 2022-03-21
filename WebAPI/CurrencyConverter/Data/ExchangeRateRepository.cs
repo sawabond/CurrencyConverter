@@ -9,7 +9,7 @@ namespace CurrencyConverter.Data
 {
     public class ExchangeRateRepository : IExchangeRateRepository
     {
-        protected readonly ExchangeRateContext _context;
+        private readonly ExchangeRateContext _context;
         public ExchangeRateRepository(ExchangeRateContext context)
         {
             _context = context;
@@ -36,7 +36,7 @@ namespace CurrencyConverter.Data
         }
         public ExchangeRate GetByName(string currencyName)
         {
-            return _context.Set<ExchangeRate>().Find(currencyName);
+            return _context.Set<ExchangeRate>().SingleOrDefault(exchangeRate => exchangeRate.CurrencyName == currencyName);
         }
         public void Remove(ExchangeRate exchangeRate)
         {
@@ -45,10 +45,6 @@ namespace CurrencyConverter.Data
         public void RemoveRange(IEnumerable<ExchangeRate> exchangeRates)
         {
             _context.Set<ExchangeRate>().RemoveRange(exchangeRates);
-        }
-        public void Confirm()
-        {
-            _context.SaveChanges();
         }
     }
 }
