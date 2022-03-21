@@ -12,10 +12,10 @@ function App() {
   const [amount, setAmount] = useState(1);
   const [amountInFromCurrency, setAmountInFromCurrency] = useState(true);
 
-  // document.addEventListener(
-  //   'DOMContentLoaded',
-  //   setInterval(currencyApiCall, 1000 * 60 * 10)
-  // ); // 10 minutes
+  document.addEventListener(
+    'DOMContentLoaded',
+    setInterval(currencyApiCall, 1000 * 60 * 10)
+  ); // 10 minutes
 
   let toAmount, fromAmount;
   if (amountInFromCurrency) {
