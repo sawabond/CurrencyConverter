@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 using Model;
 using System.Collections.Generic;
 using CurrencyConverter.Helpers.Extentions;
+using CurrencyConverter.Interfaces;
+using System;
+using System.Linq;
 
 namespace CurrencyConverter.Controllers
 {
@@ -12,9 +15,10 @@ namespace CurrencyConverter.Controllers
     [ApiController]
     public class CurrencyController : ControllerBase
     {
-        public CurrencyController()
+        private readonly IUnitOfWork _unitOfWork;
+        public CurrencyController(IUnitOfWork unitOfWork)
         {
-
+            _unitOfWork = unitOfWork;
         }
 
         /// <summary>
@@ -23,29 +27,18 @@ namespace CurrencyConverter.Controllers
         /// <returns>CurrencyDto object</returns>
         /// <response code="200">Successfully returned DTO</response>
         /// <response code="400">If the item is null</response>
-        [HttpGet]
+        [HttpGet("{baseName}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<CurrencyDto>> GetExchangeRate()
+        public async Task<ActionResult<CurrencyDto>> GetExchangeRate(string baseName)
         {
+            var models = _unitOfWork.ExchangeRateRepo
+                .Find(x => x.BaseCurrencyName == baseName).ToList();
 
-            var models = new List<ExchangeRate>
+            if (models.Count() < 1)
             {
-                new ExchangeRate
-                {
-                    Id = 1,
-                    BaseCurrencyName = "USD",
-                    CurrencyName = "RUB",
-                    Amount = 666D
-                },
-                new ExchangeRate
-                {
-                    Id = 2,
-                    BaseCurrencyName = "USD",
-                    CurrencyName = "UAH",
-                    Amount = 32.64D
-                }
-            };
+                return BadRequest($"There are not currencies with base {baseName}");
+            }
 
             var dto = new CurrencyDto();
 

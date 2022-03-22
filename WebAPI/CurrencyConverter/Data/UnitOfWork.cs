@@ -10,6 +10,8 @@ namespace CurrencyConverter.Data
         {
             _context = context;
             ExchangeRateRepo = new ExchangeRateRepository(context);
+
+            _context.Database.EnsureCreated();
         }
         public bool Confirm()
         {
