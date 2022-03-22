@@ -1,9 +1,11 @@
 ﻿using CurrencyConverter.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace CurrencyConverter.Data
 {
@@ -14,29 +16,31 @@ namespace CurrencyConverter.Data
         {
             _context = context;
         }
-        public void Add(ExchangeRate exchangeRate)
+        public async Task AddAsync(ExchangeRate exchangeRate)
         {
-            _context.Set<ExchangeRate>().Add(exchangeRate);
+            await _context.Set<ExchangeRate>().AddAsync(exchangeRate);
         }
-        public void AddRange(IEnumerable<ExchangeRate> exchangeRates)
+        public async Task AddRangeAsync(IEnumerable<ExchangeRate> exchangeRates)
         {
-            _context.Set<ExchangeRate>().AddRange(exchangeRates);
+            await _context.Set<ExchangeRate>().AddRangeAsync(exchangeRates);
         }
-        public IEnumerable<ExchangeRate> Find(Expression<Func<ExchangeRate, bool>> expression)
+        public async Task<IEnumerable<ExchangeRate>> FindAsync(Expression<Func<ExchangeRate, bool>> expression)
         {
-            return _context.Set<ExchangeRate>().Where(expression);
+            var query = _context.Set<ExchangeRate>().Where(expression);
+
+            return await query.ToListAsync();
         }
-        public IEnumerable<ExchangeRate> GetAll()
+        public async Task<IEnumerable<ExchangeRate>> GetAllAsync()
         {
-            return _context.Set<ExchangeRate>().ToList();
+            return await _context.Set<ExchangeRate>().ToListAsync();
         }
-        public ExchangeRate Get(int id)
+        public async Task<ExchangeRate> GetAsync(int id)
         {
-            return _context.Set<ExchangeRate>().Find(id);
+            return await _context.Set<ExchangeRate>().FindAsync(id);
         }
-        public ExchangeRate GetByName(string currencyName)
+        public async Task<ExchangeRate> GetByNameAsync(string currencyName)
         {
-            return _context.Set<ExchangeRate>().SingleOrDefault(exchangeRate => exchangeRate.CurrencyName == currencyName);
+            return await _context.Set<ExchangeRate>().SingleOrDefaultAsync(exchangeRate => exchangeRate.CurrencyName == currencyName);
         }
         public void Remove(ExchangeRate exchangeRate)
         {

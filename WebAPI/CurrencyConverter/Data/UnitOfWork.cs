@@ -1,4 +1,5 @@
 ﻿using CurrencyConverter.Interfaces;
+using System.Threading.Tasks;
 
 namespace CurrencyConverter.Data
 {
@@ -13,9 +14,9 @@ namespace CurrencyConverter.Data
 
             _context.Database.EnsureCreated();
         }
-        public bool Confirm()
+        public async Task<bool> ConfirmAsync()
         {
-            return _context.SaveChanges() > 0;
+            return await _context.SaveChangesAsync() > 0;
         }
     }
 }
