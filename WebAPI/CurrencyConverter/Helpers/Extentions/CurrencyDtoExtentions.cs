@@ -1,16 +1,17 @@
 ﻿using CurrencyConverter.DTO;
 using Model;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CurrencyConverter.Helpers.Extentions
 {
     public static class CurrencyDtoExtentions
     {
-        public static bool MapFromExchangeRate(this CurrencyDto currencyDto, IList<ExchangeRate> exchangeRates)
+        public static bool MapFromExchangeRate(this CurrencyDto currencyDto, IEnumerable<ExchangeRate> exchangeRates)
         {
             try
             {
-                currencyDto.Base = exchangeRates[0].BaseCurrencyName;
+                currencyDto.Base = exchangeRates.FirstOrDefault().BaseCurrencyName;
                 
                 foreach (ExchangeRate exchangeRate in exchangeRates)
                 {

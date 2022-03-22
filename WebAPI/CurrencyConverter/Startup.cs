@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using CurrencyConverter.Data;
+using CurrencyConverter.Interfaces;
 
 namespace CurrencyConverter
 {
@@ -22,6 +23,7 @@ namespace CurrencyConverter
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ExchangeRateContext>(item => item.UseSqlServer(Configuration.GetConnectionString("DbConnection")));
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
