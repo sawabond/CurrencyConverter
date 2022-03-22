@@ -35,8 +35,8 @@ namespace CurrencyConverter.Controllers
         {
             _logger.LogInformation($"Getting CurrencyDto started");
 
-            var models = _unitOfWork.ExchangeRateRepo
-                .Find(x => x.BaseCurrencyName == baseName).ToList();
+            var models = await _unitOfWork.ExchangeRateRepo
+                .FindAsync(x => x.BaseCurrencyName == baseName);
 
             if (models.Count() < 1)
             {
