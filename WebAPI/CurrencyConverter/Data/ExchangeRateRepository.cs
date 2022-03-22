@@ -16,11 +16,11 @@ namespace CurrencyConverter.Data
         {
             _context = context;
         }
-        public async Task Add(ExchangeRate exchangeRate)
+        public async Task AddAsync(ExchangeRate exchangeRate)
         {
             await _context.Set<ExchangeRate>().AddAsync(exchangeRate);
         }
-        public async Task AddRange(IEnumerable<ExchangeRate> exchangeRates)
+        public async Task AddRangeAsync(IEnumerable<ExchangeRate> exchangeRates)
         {
             await _context.Set<ExchangeRate>().AddRangeAsync(exchangeRates);
         }
@@ -28,15 +28,15 @@ namespace CurrencyConverter.Data
         {
             return _context.Set<ExchangeRate>().Where(expression);
         }
-        public async Task<IEnumerable<ExchangeRate>> GetAll()
+        public async Task<IEnumerable<ExchangeRate>> GetAllAsync()
         {
             return await _context.Set<ExchangeRate>().ToListAsync();
         }
-        public async Task<ExchangeRate> Get(int id)
+        public async Task<ExchangeRate> GetAsync(int id)
         {
             return await _context.Set<ExchangeRate>().FindAsync(id);
         }
-        public async Task<ExchangeRate> GetByName(string currencyName)
+        public async Task<ExchangeRate> GetByNameAsync(string currencyName)
         {
             return await _context.Set<ExchangeRate>().SingleOrDefaultAsync(exchangeRate => exchangeRate.CurrencyName == currencyName);
         }

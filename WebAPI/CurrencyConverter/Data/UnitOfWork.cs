@@ -14,7 +14,7 @@ namespace CurrencyConverter.Data
 
             _context.Database.EnsureCreated();
         }
-        public async Task<bool> Confirm()
+        public async Task<bool> ConfirmAsync()
         {
             return await _context.SaveChangesAsync() > 0;
         }

@@ -6,6 +6,6 @@ namespace CurrencyConverter.Interfaces
     public interface IUnitOfWork
     {
         ExchangeRateRepository ExchangeRateRepo { get; }
-        Task<bool> Confirm();
+        Task<bool> ConfirmAsync();
     }
 }
