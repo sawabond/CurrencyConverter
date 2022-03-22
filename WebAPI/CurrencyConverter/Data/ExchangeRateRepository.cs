@@ -24,9 +24,11 @@ namespace CurrencyConverter.Data
         {
             await _context.Set<ExchangeRate>().AddRangeAsync(exchangeRates);
         }
-        public IEnumerable<ExchangeRate> Find(Expression<Func<ExchangeRate, bool>> expression)
+        public async Task<IEnumerable<ExchangeRate>> FindAsync(Expression<Func<ExchangeRate, bool>> expression)
         {
-            return _context.Set<ExchangeRate>().Where(expression);
+            var query = _context.Set<ExchangeRate>().Where(expression);
+
+            return await query.ToListAsync();
         }
         public async Task<IEnumerable<ExchangeRate>> GetAllAsync()
         {
