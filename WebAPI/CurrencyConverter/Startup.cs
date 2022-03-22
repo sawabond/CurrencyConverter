@@ -7,6 +7,7 @@ using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using CurrencyConverter.Data;
 using CurrencyConverter.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace CurrencyConverter
 {
@@ -22,6 +23,7 @@ namespace CurrencyConverter
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLogging();
             services.AddDbContext<ExchangeRateContext>(item => item.UseSqlServer(Configuration.GetConnectionString("DbConnection")));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddControllers();

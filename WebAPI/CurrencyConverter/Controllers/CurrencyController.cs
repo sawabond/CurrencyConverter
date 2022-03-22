@@ -2,12 +2,11 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using Model;
-using System.Collections.Generic;
 using CurrencyConverter.Helpers.Extentions;
 using CurrencyConverter.Interfaces;
 using System;
 using System.Linq;
+using Microsoft.Extensions.Logging;
 
 namespace CurrencyConverter.Controllers
 {
@@ -16,9 +15,11 @@ namespace CurrencyConverter.Controllers
     public class CurrencyController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
-        public CurrencyController(IUnitOfWork unitOfWork)
+        private readonly ILogger<CurrencyController> _logger;
+        public CurrencyController(IUnitOfWork unitOfWork, ILogger<CurrencyController> logger)
         {
             _unitOfWork = unitOfWork;
+            _logger = logger;
         }
 
         /// <summary>
@@ -32,11 +33,15 @@ namespace CurrencyConverter.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<CurrencyDto>> GetExchangeRate(string baseName)
         {
+            _logger.LogInformation($"Getting CurrencyDto started");
+
             var models = _unitOfWork.ExchangeRateRepo
                 .Find(x => x.BaseCurrencyName == baseName).ToList();
 
             if (models.Count() < 1)
             {
+                _logger.LogInformation($"Getting CurrencyDto failed - models.Count() < 1");
+
                 return BadRequest($"There are not currencies with base {baseName}");
             }
 
@@ -44,8 +49,12 @@ namespace CurrencyConverter.Controllers
 
             if (dto.MapFromExchangeRate(models))
             {
+                _logger.LogInformation($"Getting CurrencyDto finished successfully");
+
                 return Ok(dto);
             }
+
+            _logger.LogInformation($"Getting CurrencyDto failed");
 
             return BadRequest("Unable to map models");
         }
