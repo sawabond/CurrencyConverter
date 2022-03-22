@@ -11,7 +11,7 @@ namespace CurrencyConverter.Interfaces
         Task<ExchangeRate> Get(int id);
         Task<ExchangeRate> GetByName(string currencyName);
         Task<IEnumerable<ExchangeRate>> GetAll();
-        IEnumerable<ExchangeRate> Find(Expression<Func<ExchangeRate, bool>> expression);
+        Task<IEnumerable<ExchangeRate>> FindAsync(Expression<Func<ExchangeRate, bool>> expression);
         Task Add(ExchangeRate exchangeRate);
         Task AddRange(IEnumerable<ExchangeRate> exchangeRates);
         void Remove(ExchangeRate exchangeRate);
