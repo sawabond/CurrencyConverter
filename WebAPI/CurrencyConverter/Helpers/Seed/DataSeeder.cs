@@ -10,7 +10,7 @@ namespace CurrencyConverter.Helpers.Seed
 {
     public static class DataSeeder
     {
-        private const string SeedFilePath = @"C:\Users\Саша\source\repos\CurrencyConverter\WebAPI\CurrencyConverter\Helpers\Seed\seed-data.json";
+        private const string SeedFilePath = @"Helpers\Seed\seed-data.json";
         public static async Task Seed(CurrencyConverterContext context)
         {
             if (await context.ExchangeRates.AnyAsync())
