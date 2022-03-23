@@ -42,6 +42,10 @@ namespace CurrencyConverter.Data
         {
             return await _context.Set<ExchangeRate>().SingleOrDefaultAsync(exchangeRate => exchangeRate.CurrencyName == currencyName);
         }
+        public void Update(ExchangeRate exchangeRate)
+        {
+            _context.Set<ExchangeRate>().Update(exchangeRate);
+        }
         public void Remove(ExchangeRate exchangeRate)
         {
             _context.Set<ExchangeRate>().Remove(exchangeRate);
