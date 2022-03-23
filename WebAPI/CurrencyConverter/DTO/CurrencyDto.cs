@@ -6,7 +6,7 @@ namespace CurrencyConverter.DTO
     public class CurrencyDto
     {
         public string Base { get; set; }
-        public DateTime Date { get; set; }
-        public Dictionary<string, double> Rates { get; set; }
+        public DateTime Date { get; set; } = DateTime.Now;
+        public Dictionary<string, double> Rates { get; set; } = new Dictionary<string, double>();
     }
 }
