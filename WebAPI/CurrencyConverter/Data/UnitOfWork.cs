@@ -5,9 +5,9 @@ namespace CurrencyConverter.Data
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly ExchangeRateContext _context;
+        private readonly CurrencyConverterContext _context;
         public ExchangeRateRepository ExchangeRateRepo { get; private set; }
-        public UnitOfWork(ExchangeRateContext context)
+        public UnitOfWork(CurrencyConverterContext context)
         {
             _context = context;
             ExchangeRateRepo = new ExchangeRateRepository(context);

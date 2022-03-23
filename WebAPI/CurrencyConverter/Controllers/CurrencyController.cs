@@ -1,12 +1,11 @@
 ﻿using CurrencyConverter.DTO;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 using CurrencyConverter.Helpers.Extentions;
 using CurrencyConverter.Interfaces;
-using System;
-using System.Linq;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CurrencyConverter.Controllers
 {
@@ -35,12 +34,12 @@ namespace CurrencyConverter.Controllers
         {
             _logger.LogInformation($"Getting CurrencyDto started");
 
-            var models = _unitOfWork.ExchangeRateRepo
-                .Find(x => x.BaseCurrencyName == baseName).ToList();
+            var models = await _unitOfWork.ExchangeRateRepo
+                .FindAsync(x => x.BaseCurrencyName == baseName);
 
             if (models.Count() < 1)
             {
-                _logger.LogInformation($"Getting CurrencyDto failed - models.Count() < 1");
+                _logger.LogInformation($"Getting CurrencyDto finished - no entities have been found");
 
                 return BadRequest($"There are not currencies with base {baseName}");
             }

@@ -11,8 +11,8 @@ namespace CurrencyConverter.Data
 {
     public class ExchangeRateRepository : IExchangeRateRepository
     {
-        private readonly ExchangeRateContext _context;
-        public ExchangeRateRepository(ExchangeRateContext context)
+        private readonly CurrencyConverterContext _context;
+        public ExchangeRateRepository(CurrencyConverterContext context)
         {
             _context = context;
         }
