@@ -14,6 +14,7 @@ namespace CurrencyConverter.Interfaces
         Task AddAsync(ExchangeRate exchangeRate);
         Task AddRangeAsync(IEnumerable<ExchangeRate> exchangeRates);
         Task<IEnumerable<ExchangeRate>> FindAsync(Expression<Func<ExchangeRate, bool>> expression);
+        void Update(ExchangeRate exchangeRate);
         void Remove(ExchangeRate exchangeRate);
         void RemoveRange (IEnumerable<ExchangeRate> exchangeRates);
     }
