@@ -49,7 +49,7 @@ function App() {
   }
 
   function currencyApiCall() {
-    fetch(URL)
+    fetch(`${URL}?base=${fromCurrency}`)
       .then((res) => res.json())
       .then((data) => {
         const baseName = data.base;
@@ -59,13 +59,10 @@ function App() {
           localStoredData.set(baseName, currencies);
         }
 
+        console.log("Data has been stored locally");
         setApiData(data);
       });
   }
-
-  useEffect(() => {
-    currencyApiCall();
-  }, []);
 
   useEffect(() => {
     if (localStoredData.has(fromCurrency)) {
@@ -77,28 +74,15 @@ function App() {
 
       return;
     }
-    if (fromCurrency !== null && toCurrency !== null) {
-      fetch(`${URL}?base=${fromCurrency}&symbols=${toCurrency}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setExchangeRate(data.rates[toCurrency]);
 
-          const baseName = data.base;
-          const currencies = data.rates;
-
-          localStoredData.set(baseName, currencies);
-
-          console.log(
-            `New currency ${baseName} has been stored to local storage`
-          );
-        });
-    }
+    currencyApiCall();
   }, [fromCurrency, toCurrency]);
 
   function handleFromAmountChange(e) {
     setAmount(e.target.value);
     setAmountInFromCurrency(true);
   }
+
   function handleToAmountChange(e) {
     setAmount(e.target.value);
     setAmountInFromCurrency(false);
