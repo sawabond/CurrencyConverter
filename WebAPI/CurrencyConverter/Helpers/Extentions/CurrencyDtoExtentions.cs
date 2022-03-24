@@ -26,17 +26,35 @@ namespace CurrencyConverter.Helpers.Extentions
             }
 
         }
-        public static bool MapFromExchangeRate(this CurrencyDto currencyDto, ExchangeRate exchangeRate)
+        public static ExchangeRate MapFromDto(this ExchangeRate model, ExchangeRateDto exchangeRateDto)
         {
             try
             {
-                currencyDto.Base = exchangeRate.BaseCurrencyName;
-                currencyDto.Rates.TryAdd(exchangeRate.CurrencyName, exchangeRate.Amount);
-                return true;
+                model.CurrencyName = exchangeRateDto.CurrencyName;
+                model.BaseCurrencyName = exchangeRateDto.BaseCurrencyName;
+                model.Amount = exchangeRateDto.Amount;
+                return model;
             }
             catch
             {
-                return false;
+                return null;
+            }
+
+        }
+        public static ExchangeRate MapExchangeRateDto(this ExchangeRateDto exchangeRateDto)
+        {
+            try
+            {
+                return new ExchangeRate
+                {
+                    CurrencyName = exchangeRateDto.CurrencyName,
+                    BaseCurrencyName = exchangeRateDto.BaseCurrencyName,
+                    Amount = exchangeRateDto.Amount
+                };
+            }
+            catch
+            {
+                return null;
             }
 
         }
