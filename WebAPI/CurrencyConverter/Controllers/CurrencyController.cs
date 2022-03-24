@@ -4,6 +4,7 @@ using CurrencyConverter.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Model;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -56,6 +57,66 @@ namespace CurrencyConverter.Controllers
             _logger.LogInformation($"Getting CurrencyDto failed");
 
             return BadRequest("Unable to map models");
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteExchangeRate(int id)
+        {
+            var model = await _unitOfWork.ExchangeRateRepo
+                .GetAsync(id);
+            if (model == null)
+            {
+                return BadRequest($"There are not currencies with id {id}");
+            }
+            _unitOfWork.ExchangeRateRepo.Remove(model);
+            await _unitOfWork.ConfirmAsync();
+            var dto = new CurrencyDto();
+
+            if (dto.MapFromExchangeRate(model))
+            {
+                return Ok(dto);
+            }
+            return BadRequest("Unable to map models");
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> UpdateExchangeRate(ExchangeRateDto updateExchangeRateDto)
+        {
+            var model = await _unitOfWork.ExchangeRateRepo
+                .GetByNameAsync(updateExchangeRateDto.CurrencyName);
+            if (model.CurrencyName != updateExchangeRateDto.CurrencyName)
+            {
+                return BadRequest($"There are not currencies with name {updateExchangeRateDto.CurrencyName}");
+            }
+
+            model.Amount = updateExchangeRateDto.Amount;
+            _unitOfWork.ExchangeRateRepo.Update(model);
+            await _unitOfWork.ConfirmAsync();
+            var dto = new CurrencyDto();
+
+            if (dto.MapFromExchangeRate(model))
+            {
+                return Ok(dto);
+            }
+            return BadRequest("Unable to map models");
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<CurrencyDto>> AddExchangeRate(ExchangeRateDto addExchangeRateDto)
+        {
+            var model = new ExchangeRate
+            {
+                CurrencyName = addExchangeRateDto.CurrencyName,
+                BaseCurrencyName = addExchangeRateDto.BaseCurrencyName,
+                Amount = addExchangeRateDto.Amount
+            };
+
+            await _unitOfWork.ExchangeRateRepo.AddAsync(model);
+            await _unitOfWork.ConfirmAsync();
+            return CreatedAtAction(
+                nameof(GetExchangeRate),
+                new { BaseCurrencyName = model.BaseCurrencyName },
+                model);
         }
     }
 }

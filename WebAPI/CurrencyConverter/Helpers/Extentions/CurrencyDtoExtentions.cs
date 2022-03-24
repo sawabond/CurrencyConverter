@@ -26,5 +26,19 @@ namespace CurrencyConverter.Helpers.Extentions
             }
 
         }
+        public static bool MapFromExchangeRate(this CurrencyDto currencyDto, ExchangeRate exchangeRate)
+        {
+            try
+            {
+                currencyDto.Base = exchangeRate.BaseCurrencyName;
+                currencyDto.Rates.TryAdd(exchangeRate.CurrencyName, exchangeRate.Amount);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
     }
 }
