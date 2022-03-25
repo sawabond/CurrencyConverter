@@ -3,7 +3,7 @@ import "./App.css";
 import CurrencyRow from "./CurrencyRow";
 import CurrencyArrow from "./arrows.svg";
 
-const URL = "https://api.exchangerate.host/latest";
+const URL = "https://localhost:44341/api/Currency";
 
 const API_CALL_TIMESTAMP = 1000 * 60 * 10; // 10 minutes
 
@@ -13,7 +13,7 @@ let isApiCalling = false;
 
 function App() {
   const [currencyOptions, setCurrencyOptions] = useState([]);
-  const [fromCurrency, setFromCurrency] = useState();
+  const [fromCurrency, setFromCurrency] = useState("USD");
   const [toCurrency, setToCurrency] = useState();
   const [exchangeRate, setExchangeRate] = useState();
   const [amount, setAmount] = useState(1);
@@ -49,7 +49,7 @@ function App() {
   }
 
   function currencyApiCall() {
-    fetch(`${URL}?base=${fromCurrency}`)
+    fetch(`${URL}/${fromCurrency}`)
       .then((res) => res.json())
       .then((data) => {
         const baseName = data.base;
@@ -60,6 +60,7 @@ function App() {
         }
 
         console.log("Data has been stored locally");
+        console.log(data);
         setApiData(data);
       });
   }
