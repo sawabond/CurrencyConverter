@@ -26,6 +26,14 @@ namespace CurrencyConverter
             services.AddDbContext<CurrencyConverterContext>(item => item.UseSqlServer(Configuration.GetConnectionString("DbConnection")));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddControllers();
+            services.AddCors(options =>
+            {
+                options
+                .AddPolicy("DefaultPolicy", policy =>
+                {
+                    policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                });
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CurrencyConverter", Version = "v1" });
@@ -47,6 +55,8 @@ namespace CurrencyConverter
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors("DefaultPolicy");
 
             app.UseEndpoints(endpoints =>
             {
