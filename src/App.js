@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import CurrencyRow from "./CurrencyRow";
 import CurrencyArrow from "./arrows.svg";
+import Header from "./components/header/Header";
+import Footer from "./components/footer/Footer";
 
 const URL = "https://api.exchangerate.host/latest";
 
@@ -90,28 +92,12 @@ function App() {
 
   return (
     <>
-      <div className="title">
-        <h1>Convert</h1>
-      </div>
-      <div className="rows">
-        <CurrencyRow
-          currencyOptions={currencyOptions}
-          selectedCurrency={fromCurrency}
-          onChangeCurrency={(e) => setFromCurrency(e.target.value)}
-          onChangeAmount={handleFromAmountChange}
-          amount={fromAmount}
-        />
-        <div className="equals">
-          <img src={CurrencyArrow} alt="arrow" />
-        </div>
-        <CurrencyRow
-          currencyOptions={currencyOptions}
-          selectedCurrency={toCurrency}
-          onChangeCurrency={(e) => setToCurrency(e.target.value)}
-          onChangeAmount={handleToAmountChange}
-          amount={toAmount}
-        />
-      </div>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap"
+        rel="stylesheet"
+      ></link>
+      <Header />
+      <Footer />
     </>
   );
 }
