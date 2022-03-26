@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import "./App.css";
-import CurrencyRow from "./CurrencyRow";
-import CurrencyArrow from "./arrows.svg";
+import React, { useEffect, useState } from 'react';
+import './App.css';
+import CurrencyRow from './CurrencyRow';
+import CurrencyArrow from './img/arrows.png';
 
-const URL = "https://api.exchangerate.host/latest";
+const URL = 'https://api.exchangerate.host/latest';
 
 const API_CALL_TIMESTAMP = 1000 * 60 * 10; // 10 minutes
 
@@ -22,7 +22,7 @@ function App() {
   let toAmount, fromAmount;
 
   if (isApiCalling === false) {
-    console.log("Repetitive API calling started");
+    console.log('Repetitive API calling started');
 
     setInterval(() => {
       currencyApiCall();
@@ -59,7 +59,7 @@ function App() {
           localStoredData.set(baseName, currencies);
         }
 
-        console.log("Data has been stored locally");
+        console.log('Data has been stored locally');
         setApiData(data);
       });
   }
@@ -69,7 +69,7 @@ function App() {
       setExchangeRate(localStoredData.get(fromCurrency)[toCurrency]);
 
       console.log(
-        "Data has been taken from local storage instead of API calling"
+        'Data has been taken from local storage instead of API calling'
       );
 
       return;
@@ -92,6 +92,7 @@ function App() {
     <>
       <div className="title">
         <h1>Convert</h1>
+        <hr />
       </div>
       <div className="rows">
         <CurrencyRow
@@ -102,7 +103,7 @@ function App() {
           amount={fromAmount}
         />
         <div className="equals">
-          <img src={CurrencyArrow} alt="arrow" />
+          <img src={CurrencyArrow} alt="arrows" />
         </div>
         <CurrencyRow
           currencyOptions={currencyOptions}
