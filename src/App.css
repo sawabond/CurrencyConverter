@@ -2,57 +2,14 @@
   font-family: 'Montserrat', sans-serif;
   color: rgba(255, 255, 255, 1);
 }
+body {
+  margin: 0;
+  text-align: center;
+  min-height: 100vh;
+  background-color: #14142f;
+}
 
 h1 {
   margin: 0;
   margin-bottom: 0.5rem;
-}
-
-hr {
-  width: 90%;
-  border-color: #282941;
-}
-.title {
-  color: #fff;
-  padding-top: 10px;
-}
-.input {
-  border: none;
-  padding: 0.7rem;
-  width: 90px;
-  outline: none;
-  background-color: #373861;
-  color: white;
-  text-align: center;
-  font-weight: bold;
-  border-bottom-left-radius: 10px;
-  border-top-left-radius: 10px;
-}
-select {
-  background-color: #373861;
-  color: white;
-  border: none;
-  padding: 0.65rem;
-  padding-bottom: 0.7rem;
-  border-bottom-right-radius: 10px;
-  border-top-right-radius: 10px;
-  border-left: 1px solid red;
-}
-.rows {
-  display: flex;
-  justify-content: center;
-  padding: 70px;
-  align-items: center;
-}
-
-.container {
-  background-color: #1d1e40;
-  border-radius: 20px;
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  min-height: 100vh;
-  background-color: #14142f;
 }
