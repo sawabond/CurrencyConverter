@@ -4,17 +4,11 @@ function Footer() {
   return (
     <>
       <div>
-        <p
-          style={{
-            position: 'absolute',
-            bottom: '0',
-            width: '90%',
-            textAlign: 'center',
-          }}
-        >
-          <hr />
+        <hr />
+
+        <p>
           Copyright &copy; {new Date().getFullYear()} Oleksandr Bondarenko,
-          Danylo Dovhopolyi, Tretiakov Ruslan
+          Danylo Dovhopolyi, Ruslan Tretiakov
         </p>
       </div>
     </>

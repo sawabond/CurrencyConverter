@@ -39,3 +39,9 @@ select {
   padding: 70px;
   align-items: center;
 }
+
+@media screen and (max-width: 950px) {
+  .rows {
+    display: block;
+  }
+}

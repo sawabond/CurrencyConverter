@@ -15,7 +15,7 @@ export default function CurrencyRow(props) {
       <input
         type="number"
         className="input"
-        value={amount}
+        value={amount.toString()}
         onChange={onChangeAmount}
       />
       <select value={selectedCurrency} onChange={onChangeCurrency}>
