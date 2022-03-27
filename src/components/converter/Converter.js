@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import "./Converter.css";
-import CurrencyRow from "../../CurrencyRow";
-import CurrencyArrow from "../../img/arrows.png";
-const URL = "https://api.exchangerate.host/latest";
+import React, { useEffect, useState } from 'react';
+import './Converter.css';
+import CurrencyRow from '../../CurrencyRow';
+import CurrencyArrow from '../../img/arrows.png';
+const URL = 'https://api.exchangerate.host/latest';
 
 const API_CALL_TIMESTAMP = 1000 * 60 * 10; // 10 minutes
 
@@ -20,7 +20,7 @@ function Converter() {
   const [amountInFromCurrency, setAmountInFromCurrency] = useState(true);
 
   if (isApiCalling === false) {
-    console.log("Repetitive API calling started");
+    console.log('Repetitive API calling started');
 
     setInterval(() => {
       currencyApiCall();
@@ -40,7 +40,7 @@ function Converter() {
   function setApiData(data) {
     const firstCurrency = Object.keys(data.rates)[0];
 
-    setCurrencyOptions([data.base, ...Object.keys(data.rates)]);
+    setCurrencyOptions([...Object.keys(data.rates)]);
     setFromCurrency(data.base);
     setToCurrency(firstCurrency);
     setExchangeRate(data.rates[firstCurrency]);
@@ -57,7 +57,7 @@ function Converter() {
           localStoredData.set(baseName, currencies);
         }
 
-        console.log("Data has been stored locally");
+        console.log('Data has been stored locally');
         setApiData(data);
       });
   }
@@ -67,7 +67,7 @@ function Converter() {
       setExchangeRate(localStoredData.get(fromCurrency)[toCurrency]);
 
       console.log(
-        "Data has been taken from local storage instead of API calling"
+        'Data has been taken from local storage instead of API calling'
       );
 
       return;
@@ -115,5 +115,6 @@ function Converter() {
     </>
   );
 }
+
 
 export default Converter;

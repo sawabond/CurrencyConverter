@@ -19,8 +19,8 @@
     },
     "CurrencyConverter": {
       "commandName": "Project",
-      "launchBrowser": true,
-      "launchUrl": "swagger",
+      "launchBrowser": false,
+      "launchUrl": "currency/USD",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
