@@ -25,13 +25,13 @@ namespace CurrencyConverter.Helpers.Extentions
                 return false;
             }
         }
-        public static ExchangeRate MapFromDto(this ExchangeRate model, UpdateExchangeRateDto exchangeRateDto)
+        public static ExchangeRate MapFromDto(this ExchangeRate model, UpdateExchangeRateDto updateExchangeRateDto)
         {
             try
             {
-                model.CurrencyName = exchangeRateDto.CurrencyName;
-                model.BaseCurrencyName = exchangeRateDto.BaseCurrencyName;
-                model.Amount = exchangeRateDto.Amount;
+                model.CurrencyName = updateExchangeRateDto.CurrencyName;
+                model.BaseCurrencyName = updateExchangeRateDto.BaseCurrencyName;
+                model.Amount = updateExchangeRateDto.Amount;
 
                 return model;
             }
@@ -40,15 +40,15 @@ namespace CurrencyConverter.Helpers.Extentions
                 return null;
             }
         }
-        public static ExchangeRate MapExchangeRateDto(this AddExchangeRateDto exchangeRateDto)
+        public static ExchangeRate MapExchangeRateDto(this AddExchangeRateDto addExchangeRateDto)
         {
             try
             {
                 return new ExchangeRate
                 {
-                    CurrencyName = exchangeRateDto.CurrencyName,
-                    BaseCurrencyName = exchangeRateDto.BaseCurrencyName,
-                    Amount = exchangeRateDto.Amount
+                    CurrencyName = addExchangeRateDto.CurrencyName,
+                    BaseCurrencyName = addExchangeRateDto.BaseCurrencyName,
+                    Amount = addExchangeRateDto.Amount
                 };
             }
             catch
