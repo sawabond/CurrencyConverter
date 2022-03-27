@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export default function CurrencyRow(props) {
   const {
@@ -9,13 +9,16 @@ export default function CurrencyRow(props) {
     amount,
   } = props;
 
-  console.log(props);
+  function roundToHundreds(number) {
+    return Math.floor(number * 100) / 100;
+  }
+
   return (
     <div>
       <input
         type="number"
         className="input"
-        value={amount}
+        value={roundToHundreds(amount)}
         onChange={onChangeAmount}
       />
       <select value={selectedCurrency} onChange={onChangeCurrency}>
