@@ -4,7 +4,6 @@ using CurrencyConverter.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Model;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -59,7 +58,14 @@ namespace CurrencyConverter.Controllers
             return BadRequest("Unable to map models");
         }
 
+        /// <summary>
+        /// Removes ExchangeRate
+        /// </summary>
+        /// <response code="204">Successfully removed ExchangeRate</response>
+        /// <response code="400">If the item is null</response>
         [HttpDelete("{baseName}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> DeleteExchangeRate(string baseName)
         {
             _logger.LogInformation($"Deleting ExchangeRate started");
@@ -81,13 +87,20 @@ namespace CurrencyConverter.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Updates ExchangeRate
+        /// </summary>
+        /// <response code="204">Successfully updated ExchangeRate</response>
+        /// <response code="400">If the item is null</response>
         [HttpPut]
-        public async Task<ActionResult> UpdateExchangeRate([FromBody]ExchangeRateDto updateExchangeRateDto)
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult> UpdateExchangeRate([FromBody]UpdateExchangeRateDto updateExchangeRateDto)
         {
             _logger.LogInformation($"Updating ExchangeRate started");
 
             var model = await _unitOfWork.ExchangeRateRepo.
-                GetByNameAsync(updateExchangeRateDto.BaseCurrencyName, updateExchangeRateDto.CurrencyName);
+                GetByNamesAsync(updateExchangeRateDto.BaseCurrencyName, updateExchangeRateDto.CurrencyName);
 
             if (model == null)
             {
@@ -104,8 +117,16 @@ namespace CurrencyConverter.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Adds ExchangeRate
+        /// </summary>
+        /// <returns>addExchangeRateDto object</returns>
+        /// <response code="200">Successfully added ExchangeRate</response>
+        /// <response code="400">If the item is null</response>
         [HttpPost]
-        public async Task<ActionResult<CurrencyDto>> AddExchangeRate([FromBody]ExchangeRateDto addExchangeRateDto)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<CurrencyDto>> AddExchangeRate([FromBody]AddExchangeRateDto addExchangeRateDto)
         {
             _logger.LogInformation($"Adding ExchangeRate started");
 

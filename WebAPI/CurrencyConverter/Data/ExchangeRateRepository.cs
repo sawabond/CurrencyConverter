@@ -38,7 +38,7 @@ namespace CurrencyConverter.Data
         {
             return await _context.Set<ExchangeRate>().FindAsync(id);
         }
-        public async Task<ExchangeRate> GetByNameAsync(string baseCurrencyName, string currencyName)
+        public async Task<ExchangeRate> GetByNamesAsync(string baseCurrencyName, string currencyName)
         {
             return await _context.Set<ExchangeRate>().FirstOrDefaultAsync(x => x.BaseCurrencyName == baseCurrencyName && x.CurrencyName == currencyName);
         }

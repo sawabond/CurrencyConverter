@@ -9,7 +9,7 @@ namespace CurrencyConverter.Interfaces
     public interface IExchangeRateRepository
     {
         Task<ExchangeRate> GetAsync(int id);
-        Task<ExchangeRate> GetByNameAsync(string baseCurrencyName, string currencyName);
+        Task<ExchangeRate> GetByNamesAsync(string baseCurrencyName, string currencyName);
         Task<IEnumerable<ExchangeRate>> GetRangeByNameAsync(string baseCurrencyName);
         Task<IEnumerable<ExchangeRate>> GetAllAsync();
         Task AddAsync(ExchangeRate exchangeRate);
