@@ -3,9 +3,9 @@ using Model;
 
 namespace CurrencyConverter.Data
 {
-    public class ExchangeRateContext : DbContext
+    public class CurrencyConverterContext : DbContext
     {
-        public ExchangeRateContext(DbContextOptions options)
+        public CurrencyConverterContext(DbContextOptions options)
             :base(options)
         {
 

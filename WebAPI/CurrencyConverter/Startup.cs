@@ -1,11 +1,12 @@
+using CurrencyConverter.Data;
+using CurrencyConverter.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Microsoft.EntityFrameworkCore;
-using CurrencyConverter.Data;
 
 namespace CurrencyConverter
 {
@@ -21,8 +22,30 @@ namespace CurrencyConverter
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ExchangeRateContext>(item => item.UseSqlServer(Configuration.GetConnectionString("DbConnection")));
+            services.AddLogging();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: "DefaultCors", builder =>
+                {
+                    builder
+                    .AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+                });
+            });
+
+            services.AddDbContext<CurrencyConverterContext>(item => item.UseSqlServer(Configuration.GetConnectionString("DbConnection")));
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddControllers();
+            services.AddCors(options =>
+            {
+                options
+                .AddPolicy("DefaultPolicy", policy =>
+                {
+                    policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                });
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CurrencyConverter", Version = "v1" });
@@ -43,7 +66,11 @@ namespace CurrencyConverter
 
             app.UseRouting();
 
+            app.UseCors("DefaultCors");
+
             app.UseAuthorization();
+
+            app.UseCors("DefaultPolicy");
 
             app.UseEndpoints(endpoints =>
             {
