@@ -24,24 +24,23 @@ namespace CurrencyConverter.Helpers.Extentions
             {
                 return false;
             }
-
         }
-        public static ExchangeRate MapFromDto(this ExchangeRate model, ExchangeRateDto exchangeRateDto)
+        public static ExchangeRate MapFromDto(this ExchangeRate model, UpdateExchangeRateDto exchangeRateDto)
         {
             try
             {
                 model.CurrencyName = exchangeRateDto.CurrencyName;
                 model.BaseCurrencyName = exchangeRateDto.BaseCurrencyName;
                 model.Amount = exchangeRateDto.Amount;
+
                 return model;
             }
             catch
             {
                 return null;
             }
-
         }
-        public static ExchangeRate MapExchangeRateDto(this ExchangeRateDto exchangeRateDto)
+        public static ExchangeRate MapExchangeRateDto(this AddExchangeRateDto exchangeRateDto)
         {
             try
             {
@@ -56,7 +55,6 @@ namespace CurrencyConverter.Helpers.Extentions
             {
                 return null;
             }
-
         }
     }
 }

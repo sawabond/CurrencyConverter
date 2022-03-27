@@ -1,6 +1,6 @@
 ﻿namespace CurrencyConverter.DTO
 {
-    public class ExchangeRateDto
+    public class AddExchangeRateDto
     {
         public string BaseCurrencyName { get; set; }
         public string CurrencyName { get; set; }
