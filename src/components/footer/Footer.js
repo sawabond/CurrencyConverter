@@ -5,7 +5,6 @@ function Footer() {
     <>
       <div>
         <hr />
-
         <p>
           Copyright &copy; {new Date().getFullYear()} Oleksandr Bondarenko,
           Danylo Dovhopolyi, Ruslan Tretiakov
