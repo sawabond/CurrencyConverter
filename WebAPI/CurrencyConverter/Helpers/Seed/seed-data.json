@@ -1,0 +1,42 @@
+[
+  {
+    "BaseCurrencyName": "USD",
+    "CurrencyName": "RUB",
+    "Amount": 178.2
+  },
+  {
+    "BaseCurrencyName": "USD",
+    "CurrencyName": "UAH",
+    "Amount": 31.4
+  },
+  {
+    "BaseCurrencyName": "USD",
+    "CurrencyName": "GBP",
+    "Amount": 0.84
+  },
+  {
+    "BaseCurrencyName": "USD",
+    "CurrencyName": "EUR",
+    "Amount": 0.96
+  },
+  {
+    "BaseCurrencyName": "EUR",
+    "CurrencyName": "USD",
+    "Amount": 1.24
+  },
+  {
+    "BaseCurrencyName": "EUR",
+    "CurrencyName": "UAH",
+    "Amount": 34.82
+  },
+  {
+    "BaseCurrencyName": "EUR",
+    "CurrencyName": "RUB",
+    "Amount": 192.42
+  },
+  {
+    "BaseCurrencyName": "EUR",
+    "CurrencyName": "GBP",
+    "Amount": 0.92
+  }
+]
