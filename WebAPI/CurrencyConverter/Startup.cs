@@ -24,17 +24,6 @@ namespace CurrencyConverter
         {
             services.AddLogging();
 
-            services.AddCors(options =>
-            {
-                options.AddPolicy(name: "DefaultCors", builder =>
-                {
-                    builder
-                    .AllowAnyOrigin()
-                    .AllowAnyHeader()
-                    .AllowAnyMethod();
-                });
-            });
-
             services.AddDbContext<CurrencyConverterContext>(item => item.UseSqlServer(Configuration.GetConnectionString("DbConnection")));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddControllers();
