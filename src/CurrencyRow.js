@@ -9,16 +9,19 @@ export default function CurrencyRow(props) {
     amount,
   } = props;
 
-  function roundToHundreds(number) {
+  function roundToHundreads(number) {
     return Math.floor(number * 100) / 100;
   }
+  // function fixMinusValue(number) {
+  //   return Math.abs(number);
+  // }
 
   return (
     <div>
       <input
         type="number"
         className="input"
-        value={roundToHundreds(amount)}
+        value={roundToHundreads(amount)}
         onChange={onChangeAmount}
       />
       <select value={selectedCurrency} onChange={onChangeCurrency}>
