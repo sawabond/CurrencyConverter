@@ -35,7 +35,7 @@ namespace CurrencyConverter
                 });
             });
 
-            services.AddDbContext<CurrencyConverterContext>(item => item.UseSqlServer(Configuration.GetConnectionString("DbConnection")));
+            services.AddDbContext<CurrencyConverterContext>(item => item.UseInMemoryDatabase("InMemoryDb"));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddControllers();
             services.AddCors(options =>

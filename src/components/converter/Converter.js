@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './Converter.css';
 import CurrencyRow from '../../CurrencyRow';
 import CurrencyArrow from '../../img/arrows.png';
-const URL = 'https://api.exchangerate.host/latest';
+const URL = 'https://localhost:44341/api/Currency';
 
 const API_CALL_TIMESTAMP = 1000 * 60 * 10; // 10 minutes
 
@@ -13,7 +13,7 @@ let isApiCalling = false;
 let toAmount, fromAmount;
 function Converter() {
   const [currencyOptions, setCurrencyOptions] = useState([]);
-  const [fromCurrency, setFromCurrency] = useState();
+  const [fromCurrency, setFromCurrency] = useState('EUR');
   const [toCurrency, setToCurrency] = useState();
   const [exchangeRate, setExchangeRate] = useState();
   const [amount, setAmount] = useState(1);
@@ -38,16 +38,17 @@ function Converter() {
   }
 
   function setApiData(data) {
-    const firstCurrency = Object.keys(data.rates)[0];
+    const toCurrencies = [...Object.keys(data.rates)];
+    const firstCurrency = toCurrencies[0];
 
-    setCurrencyOptions([...Object.keys(data.rates)]);
+    setCurrencyOptions(toCurrencies);
     setFromCurrency(data.base);
-    setToCurrency(firstCurrency);
+    setToCurrency(toCurrencies[1]);
     setExchangeRate(data.rates[firstCurrency]);
   }
 
   function currencyApiCall() {
-    fetch(`${URL}?base=${fromCurrency}`)
+    fetch(`${URL}/${fromCurrency}`)
       .then((res) => res.json())
       .then((data) => {
         const baseName = data.base;
@@ -115,6 +116,5 @@ function Converter() {
     </>
   );
 }
-
 
 export default Converter;
