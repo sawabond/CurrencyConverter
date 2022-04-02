@@ -38,9 +38,19 @@ namespace CurrencyConverter.Data
         {
             return await _context.Set<ExchangeRate>().FindAsync(id);
         }
-        public async Task<ExchangeRate> GetByNameAsync(string currencyName)
+        public async Task<ExchangeRate> GetByNamesAsync(string baseCurrencyName, string currencyName)
         {
-            return await _context.Set<ExchangeRate>().SingleOrDefaultAsync(exchangeRate => exchangeRate.CurrencyName == currencyName);
+            return await _context.Set<ExchangeRate>().FirstOrDefaultAsync(x => x.BaseCurrencyName == baseCurrencyName && x.CurrencyName == currencyName);
+        }
+        public async Task<IEnumerable<ExchangeRate>> GetRangeByNameAsync(string baseCurrencyName)
+        {
+            var query = _context.Set<ExchangeRate>().Where(exchangeRate => exchangeRate.BaseCurrencyName == baseCurrencyName);
+
+            return await query.ToListAsync();
+        }
+        public void Update(ExchangeRate exchangeRate)
+        {
+            _context.Set<ExchangeRate>().Update(exchangeRate);
         }
         public void Remove(ExchangeRate exchangeRate)
         {

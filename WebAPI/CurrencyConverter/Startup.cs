@@ -23,7 +23,19 @@ namespace CurrencyConverter
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddLogging();
-            services.AddDbContext<CurrencyConverterContext>(item => item.UseSqlServer(Configuration.GetConnectionString("DbConnection")));
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: "DefaultCors", builder =>
+                {
+                    builder
+                    .AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+                });
+            });
+
+            services.AddDbContext<CurrencyConverterContext>(item => item.UseInMemoryDatabase("InMemoryDb"));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddControllers();
             services.AddCors(options =>
@@ -53,6 +65,8 @@ namespace CurrencyConverter
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("DefaultCors");
 
             app.UseAuthorization();
 
